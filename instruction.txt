@@ -1,0 +1,24 @@
+Automount the HDD or Partition on reboot:
+	Link:(https://www.techrepublic.com/article/how-to-properly-automount-a-drive-in-ubuntu-linux/)
+	
+Step 1:Locate the partition to mount:
+	sudo fdisk -l
+
+Step 2:Locate the UUID;
+	find the UUID (Universal Unique Identifier) of the drive
+		sudo blkid
+
+Step 3:Create a mount point:
+	sudo mkdir /data
+	sudo groupadd data
+	sudo usermod -aG data USERNAME (Where USERNAME is the name of the user to be added)
+	sudo chown -R :data /data
+
+Step 4:The automount entry:
+	create the automount entry
+		sudo nano /etc/fstab
+	At the bottom of that file, we'll add an entry that contains the information we've discovered. The entry will look like this:
+		UUIDofyourHDD(UUID=14D82C19D82BF81E) /data    auto nosuid,nodev,nofail,x-gvfs-show 0 0
+	Save and Close the file
+
+Step 5:Reboot the machine
